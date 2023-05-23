@@ -1,6 +1,6 @@
 import winreg
-
-with winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, "") as hklm_key:
-    for idx in range(winreg.QueryInfoKey(hklm_key)[0]):
-        if winreg.EnumKey(hklm_key, idx)[0] == ".":
-            print(winreg.EnumKey(hklm_key, idx))
+import os
+program_path = os.path.abspath("browser.py")
+key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, "Microsoft\\Windows\\CurrentVersion\\Explorer\\StartupApproved\\Run", 0, winreg.KEY_SET_VALUE)
+winreg.SetValueEx(key, "Browser Set prog", 0, winreg.REG_SZ, program_path)
+winreg.CloseKey(key)
